@@ -10,7 +10,7 @@ import { ModuleFuel, ModuleMass, parseAsModuleMass } from './domain'
 
 export const inputFilePath = resolve(srcRoot, 'day1/input.txt')
 
-const asNonEmptyArray = <A>(as: A[]) => as as NEA.NonEmptyArray<A>
+export const asNonEmptyArray = <A>(as: A[]) => as as NEA.NonEmptyArray<A>
 
 const parseInput = (fileContents: string): NEA.NonEmptyArray<ModuleMass> =>
   pipe(
