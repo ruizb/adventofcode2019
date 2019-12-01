@@ -4,7 +4,6 @@
   "description": "Advent of code 2019 puzzles",
   "main": "index.js",
   "scripts": {
-    "precommit": "lint-staged",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,13 +16,18 @@
     "prettier": "^1.19.1",
     "typescript": "^3.7.2"
   },
+  "dependencies": {
+    "fp-ts": "^2.2.0"
+  },
   "lint-staged": {
     "*.ts": [
       "prettier --write",
       "git add"
     ]
   },
-  "dependencies": {
-    "fp-ts": "^2.2.0"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
