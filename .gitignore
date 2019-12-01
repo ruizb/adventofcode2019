@@ -1,0 +1,15 @@
+# OSX specific
+*~
+*.DS_Store
+*.log
+*.iml
+
+# IDE specific
+.idea
+.project
+.settings
+
+# node specific
+node_modules/
+npm-debug*
+lib

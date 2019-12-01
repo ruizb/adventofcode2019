@@ -1,0 +1,27 @@
+{
+  "name": "adventofcode2019",
+  "version": "1.0.0",
+  "description": "Advent of code 2019 puzzles",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benoit Ruiz",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^12.12.14",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.2"
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "fp-ts": "^2.2.0"
+  }
+}
