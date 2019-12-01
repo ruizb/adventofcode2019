@@ -37,10 +37,21 @@ const parseInput = (fileContents: string): NEA.NonEmptyArray<ModuleMass> =>
 const getFuelFromMass = (mass: ModuleMass): ModuleFuel =>
   (Math.floor(mass / 3) - 2) as ModuleFuel
 
+// Day 1, part 2
+const getTotalFuelRequirementForMass = (mass: ModuleMass): ModuleFuel => {
+  const fuelRequirement = getFuelFromMass(mass)
+  return fuelRequirement <= 0
+    ? asModuleFuel(0)
+    : moduleFuelMonoid.concat(
+        fuelRequirement,
+        getTotalFuelRequirementForMass(fuelRequirement as ModuleMass)
+      )
+}
+
 const computeFuelRequirement = flow(
   getFileContents,
   TE.map(parseInput),
-  TE.map(NEA.map(getFuelFromMass)),
+  TE.map(NEA.map(getTotalFuelRequirementForMass)),
   TE.map(M.fold(moduleFuelMonoid)),
   TE.fold(
     (err: Error) => T.fromIO(error(err)),
