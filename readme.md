@@ -19,10 +19,10 @@ npm run build
 Requires to build the project first.
 
 ```sh
-node lib/dayX/
+node lib/dayX/partY/
 ```
 
-(replace `X` with the desired day number)
+(replace `X` with the desired day number and `Y` with 1 or 2)
 
 ## Tests
 
