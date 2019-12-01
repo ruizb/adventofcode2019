@@ -7,15 +7,13 @@ import { error, log } from 'fp-ts/lib/Console'
 import { ModuleFuel, moduleFuelMonoid } from '../domain'
 import { getFuelFromMass, getModuleMassList, inputFilePath } from '../index'
 
-const computeFuelRequirement = flow(
+export const computeFuelRequirement = flow(
   getModuleMassList,
-  TE.map(NEA.map(getFuelFromMass)),
-  TE.map(M.fold(moduleFuelMonoid)),
-  TE.fold(
-    (err: Error) => T.fromIO(error(err)),
-    (fuelVolume: ModuleFuel) =>
-      T.fromIO(log(`[PART 1] Total fuel requirement: ${fuelVolume}`))
-  )
+  TE.map(flow(NEA.map(getFuelFromMass), M.fold(moduleFuelMonoid)))
 )
 
-computeFuelRequirement(inputFilePath)()
+TE.fold(
+  (err: Error) => T.fromIO(error(err)),
+  (fuelVolume: ModuleFuel) =>
+    T.fromIO(log(`[PART 1] Total fuel requirement: ${fuelVolume}`))
+)(computeFuelRequirement(inputFilePath))()

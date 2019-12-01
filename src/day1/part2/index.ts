@@ -22,15 +22,15 @@ const getTotalFuelRequirementForMass = (mass: ModuleMass): ModuleFuel => {
       )
 }
 
-const computeFuelRequirement = flow(
+export const computeFuelRequirement = flow(
   getModuleMassList,
-  TE.map(NEA.map(getTotalFuelRequirementForMass)),
-  TE.map(M.fold(moduleFuelMonoid)),
-  TE.fold(
-    (err: Error) => T.fromIO(error(err)),
-    (fuelVolume: ModuleFuel) =>
-      T.fromIO(log(`[PART 2] Total fuel requirement: ${fuelVolume}`))
+  TE.map(
+    flow(NEA.map(getTotalFuelRequirementForMass), M.fold(moduleFuelMonoid))
   )
 )
 
-computeFuelRequirement(inputFilePath)()
+TE.fold(
+  (err: Error) => T.fromIO(error(err)),
+  (fuelVolume: ModuleFuel) =>
+    T.fromIO(log(`[PART 2] Total fuel requirement: ${fuelVolume}`))
+)(computeFuelRequirement(inputFilePath))()
