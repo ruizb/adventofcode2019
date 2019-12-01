@@ -26,4 +26,6 @@ node lib/dayX/partY/
 
 ## Tests
 
-I'll add some when I get the chance.
+```sh
+npm test
+```
