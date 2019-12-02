@@ -1,5 +1,4 @@
 import * as A from 'fp-ts/lib/Array'
-import { flow } from 'fp-ts/lib/function'
 import * as NEA from 'fp-ts/lib/NonEmptyArray'
 import { none, Option, option } from 'fp-ts/lib/Option'
 import * as O from 'fp-ts/lib/Option'
@@ -10,14 +9,15 @@ import * as S from 'fp-ts/lib/State'
 import { Int } from '../../day1/domain'
 import {
   asOpCode,
+  IntCodeProgram,
   intProductSemigroup,
   intSumSemigroup,
   isHaltOpCode,
   isProductOpCode,
   isSumOpCode
 } from '../domain'
+import { initializeProgramMemory } from '../index'
 
-type IntCodeProgram = NEA.NonEmptyArray<Int>
 type OptIntCodeProgram = Option<IntCodeProgram>
 
 const getInputValuesFromParametersAddresses = (
@@ -91,9 +91,9 @@ const processIntCodeProgram = (
     )
   )
 
-export const initializeProgramMemory1202 = flow(
-  NEA.updateAt(1, 12 as Int),
-  O.chain(NEA.updateAt(2, 2 as Int))
+export const initializeProgramMemory1202 = initializeProgramMemory(
+  12 as Int,
+  2 as Int
 )
 
 export default processIntCodeProgram

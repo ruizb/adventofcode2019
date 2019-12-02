@@ -1,7 +1,9 @@
 import { flow } from 'fp-ts/lib/function'
+import * as NEA from 'fp-ts/lib/NonEmptyArray'
 import { Semigroup, semigroupProduct, semigroupSum } from 'fp-ts/lib/Semigroup'
 import { Int, asInt } from '../day1/domain'
 
+export type IntCodeProgram = NEA.NonEmptyArray<Int>
 export type OpCode = 1 | 2 | 99
 
 export const asOpCode = (n: Int) => n as OpCode
