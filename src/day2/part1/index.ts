@@ -8,27 +8,29 @@ import * as TE from 'fp-ts/lib/TaskEither'
 import * as T from 'fp-ts/lib/Task'
 import { Int } from '../../day1/domain'
 import { getInputs, inputFilePath } from '../index'
-import processInputs, { restore1202ProgramAlarm } from './processInputs'
+import processIntCodeProgram, {
+  initializeProgramMemory1202
+} from './processIntCodeProgram'
 
-const initialPlayHeadPosition = 0
+const initialInstructionPointer = 0
 
 pipe(
   getInputs(inputFilePath),
   TE.map(
     flow(
-      restore1202ProgramAlarm,
-      processInputs,
-      _ => evalState(_, initialPlayHeadPosition),
+      initializeProgramMemory1202,
+      processIntCodeProgram,
+      _ => evalState(_, initialInstructionPointer),
       O.map(head)
     )
   ),
   TE.fold(
     (err: Error) => T.fromIO(error(err)),
-    (valueAtPositionZero: O.Option<Int>) =>
+    (valueAtFirstAddress: O.Option<Int>) =>
       T.fromIO(
         log(
-          `[PART 1] Value at position 0: ${pipe(
-            valueAtPositionZero,
+          `[PART 1] Value at address 0: ${pipe(
+            valueAtFirstAddress,
             O.map(String),
             O.getOrElse(() => 'unknown')
           )}`
